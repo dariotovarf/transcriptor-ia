@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Transcriptor IA</title>
+</head>
+<body>
+    <h2>Subir archivo</h2>
+    <input type="file" id="fileInput">
+    <button onclick="upload()">Enviar</button>
+
+    <pre id="result"></pre>
+
+    <script>
+        async function upload() {
+            const file = document.getElementById("fileInput").files[0];
+            const formData = new FormData();
+            formData.append("file", file);
+
+            const res = await fetch("http://localhost:8000/upload", {
+                method: "POST",
+                body: formData
+            });
+
+            const data = await res.json();
+            document.getElementById("result").innerText = data.translated;
+        }
+    </script>
+</body>
+</html>
